@@ -22,7 +22,6 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- 2. DATA ENGINE ---
-# --- 2. DATA ENGINE ---
 DB_FILE = "dt_spz-11.db"
 
 @st.cache_data
@@ -46,20 +45,6 @@ def load_master_data(limit=2000):
         noise = 0.15 * np.random.randn(limit)
         seismic_signal = p_wave + s_wave + noise
         return pd.DataFrame({'spz': seismic_signal})
-
-@st.cache_data
-def load_master_data(limit=2000):
-    try:
-        # 1. Automatically ensure the file exists before connecting
-        download_database_from_drive() 
-        
-        # 2. Connect to the file (whether local or just downloaded)
-        conn = sqlite3.connect(DB_FILE, timeout=30)
-        df = pd.read_sql_query(f"SELECT spz FROM spz_11 LIMIT {limit}", conn)
-        conn.close()
-        return df
-    except:
-        return pd.DataFrame({'spz': np.random.randn(limit)})
 
 # --- 3. HEADER ---
 st.title("🛰️ LUNAR-OS : SUPREME COMMAND")
