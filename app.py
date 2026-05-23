@@ -22,10 +22,29 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- 2. DATA ENGINE ---
+import os
+
+DB_FILE = "dt_spz-11.db"
+DRIVE_FILE_ID = "PASTE_YOUR_COPIED_GOOGLE_DRIVE_ID_HERE" # Put your ID here!
+
+def download_database_from_drive():
+    if not os.path.exists(DB_FILE):
+        with st.spinner("Connecting to Google Drive database..."):
+            download_url = f"https://docs.google.com/uc?export=download&id={DRIVE_FILE_ID}"
+            import urllib.request
+            try:
+                urllib.request.urlretrieve(download_url, DB_FILE)
+            except Exception as e:
+                pass
+
 @st.cache_data
 def load_master_data(limit=2000):
     try:
-        conn = sqlite3.connect('dt_spz-11.db', timeout=30)
+        # 1. Automatically ensure the file exists before connecting
+        download_database_from_drive() 
+        
+        # 2. Connect to the file (whether local or just downloaded)
+        conn = sqlite3.connect(DB_FILE, timeout=30)
         df = pd.read_sql_query(f"SELECT spz FROM spz_11 LIMIT {limit}", conn)
         conn.close()
         return df
