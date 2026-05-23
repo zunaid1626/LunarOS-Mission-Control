@@ -23,17 +23,18 @@ st.markdown("""
 
 # --- 2. DATA ENGINE ---
 import os
+import gdown
 
 DB_FILE = "dt_spz-11.db"
-DRIVE_FILE_ID = "172NjGT-mUo7bE7nHmZAW8G8SeI5qS44z"
+DRIVE_FILE_ID = "172NjGT-mUo7bE7nHmZAW8G8SeI5qS44z" # Put your ID here!
 
 def download_database_from_drive():
     if not os.path.exists(DB_FILE):
-        with st.spinner("Connecting to Google Drive database..."):
-            download_url = f"https://docs.google.com/uc?export=download&id={DRIVE_FILE_ID}"
-            import urllib.request
+        with st.spinner("Establishing secure high-volume data stream from Drive... Please wait."):
+            # gdown bypasses the 100MB+ virus scan confirmation page seamlessly
+            url = f"https://drive.google.com/uc?id={DRIVE_FILE_ID}"
             try:
-                urllib.request.urlretrieve(download_url, DB_FILE)
+                gdown.download(url, DB_FILE, quiet=False)
             except Exception as e:
                 pass
 
