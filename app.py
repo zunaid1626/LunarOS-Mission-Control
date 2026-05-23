@@ -25,7 +25,7 @@ st.markdown("""
 import os
 
 DB_FILE = "dt_spz-11.db"
-DRIVE_FILE_ID = "PASTE_YOUR_COPIED_GOOGLE_DRIVE_ID_HERE" # Put your ID here!
+DRIVE_FILE_ID = "172NjGT-mUo7bE7nHmZAW8G8SeI5qS44z"
 
 def download_database_from_drive():
     if not os.path.exists(DB_FILE):
