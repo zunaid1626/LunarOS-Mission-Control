@@ -1,3 +1,9 @@
+# 🌌 LUNAR-OS : SUPREME COMMAND
+
+> **Live Deployment:** [👉 Click here to launch the live platform](https://lunaros-mission-control-lgsqjaa8dudxllahontgpv.streamlit.app/)
+
+Full-Spectrum Seismic Intelligence & Predictive Modeling using custom 1D-CNN architectures. Built to process high-volume archival datasets smoothly with cloud-optimized streaming metrics.
+
 # 🛰️ LUNAR-OS : MISSION CONTROL
 **Advanced 1D-CNN Lunar Seismic Detection & Telemetry Platform**
 
