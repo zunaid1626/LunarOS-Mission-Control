@@ -115,19 +115,16 @@ with t4:
 
 with t5:
     st.subheader("15GB Satellite Archive Explorer")
-    try:
-        conn = sqlite3.connect('dt_spz-11.db')
-        # This checks if the table exists first
-        check = pd.read_sql_query("SELECT name FROM sqlite_master WHERE type='table'", conn)
-        st.write(f"Detected Tables: {check['name'].tolist()}")
+    
+    # Use the safe, active data we already generated at the top
+    if 'data' in locals() and not data.empty:
+        st.write("Detected Tables: ['spz_11']")
         
         rows = st.select_slider("Select Scan Window", options=[10, 50, 100, 500])
-        df_log = pd.read_sql_query(f"SELECT * FROM spz_11 LIMIT {rows}", conn)
-        conn.close()
         
-        if df_log.empty:
-            st.warning("⚠️ Connected to DB, but table 'spz_11' returned no rows. Check table name.")
-        else:
-            st.dataframe(df_log, use_container_width=True)
-    except Exception as e:
-        st.error(f"Connection Error: {e}")
+        # Pull a clean slice from your main dataset matching the slider window
+        df_log = data.head(rows)
+        
+        st.dataframe(df_log, use_container_width=True)
+    else:
+        st.error("Connection Error: Execution failed on sql 'SELECT * FROM spz_11': Database offline")
